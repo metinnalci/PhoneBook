@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using PhoneBookAPI.Models.Entities;
 using PhoneBookAPI.Models.ORM.Context;
 using System;
@@ -23,7 +24,24 @@ namespace PhoneBookAPI.Controllers
         [HttpGet]
         public List<User> GetUserList()
         {
-            return _phoneBookContext.Users.Where(q => q.Deleted == false).ToList();
+            var users = _phoneBookContext.Users.Include(q => q.ContactTypes).Select(t => new User
+            {
+                ID = t.ID,
+                Name = t.Name,
+                SurName = t.SurName,
+                Company = t.Company,
+                Deleted = t.Deleted,
+                ContactTypes = (List<ContactTypes>)t.ContactTypes.Select(p => new ContactTypes
+                {
+                    ID = p.ID,
+                    UserID = p.UserID,
+                    Phone = p.Phone,
+                    Email = p.Email,
+                    Location = p.Location
+                })
+            }).Where(q => q.Deleted == false).ToList();
+
+            return users;
         }
 
 

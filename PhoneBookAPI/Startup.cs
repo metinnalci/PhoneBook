@@ -6,6 +6,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
 using PhoneBookAPI.Models.ORM.Context;
 using System;
 using System.Collections.Generic;
@@ -28,6 +29,9 @@ namespace PhoneBookAPI
         {
             services.AddControllers();
             services.AddDbContext<PhoneBookContext>();
+            services.AddMvc().AddJsonOptions(options => {
+                options.JsonSerializerOptions.MaxDepth = 250;
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

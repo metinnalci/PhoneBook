@@ -12,8 +12,8 @@ namespace PhoneBookAPI.Models.Entities
         public string Phone { get; set; }
         public string Email { get; set; }
         public string Location { get; set; }
-        public int UserID { get; set; }
         [ForeignKey("UserID")]
-        public User User { get; set; }
+        public int UserID { get; set; }
+                
     }
 }
