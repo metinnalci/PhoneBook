@@ -72,7 +72,26 @@ namespace PhoneBookAPI.Controllers
             }
         }
 
-        
+        [Route("user/delete")]
+        [HttpPost]
+        public IActionResult DeleteUser([FromForm] int id)
+        {
+            User user = _phoneBookContext.Users.Find(id);
+
+            if (user != null)
+            {
+                user.Deleted = true;
+                _phoneBookContext.SaveChanges();
+
+                return Ok($"ID'si {id} olan kişi başarıyla silindi!");
+
+            }
+            else
+            {
+                return BadRequest($"ID'si {id} olan kişi bulunamadı!");
+            }
+
+        }
 
     }
 }
