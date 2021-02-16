@@ -25,7 +25,6 @@ namespace PhoneBookAPI.Controllers
         [HttpPost]
         public IActionResult AddContact([FromForm] ContactPM model)
         {
-
             var user = _phoneBookContext.Users.Include(q => q.ContactTypes).FirstOrDefault(p => p.ID == model.UserID);
             if (user != null)
             {
@@ -51,7 +50,29 @@ namespace PhoneBookAPI.Controllers
             {
                 return BadRequest($"ID'si {model.UserID} olan kişi bulunamadı!");
             }
+        }
 
+        [Route("contact/delete")]
+        [HttpPost]
+        public IActionResult DeleteContact([FromForm] int id)
+        {
+            User user = _phoneBookContext.Users.Include(q => q.ContactTypes).FirstOrDefault(p => p.ID == id);
+
+            if (user != null )
+                if (user.ContactTypes != null)
+                {
+                    user.ContactTypes = null;
+                    _phoneBookContext.SaveChanges();
+                    return Ok($"ID'si {id} olan kişinin iletişim bilgileri kaldırıldı!");
+                }
+                else
+                {
+                    return BadRequest($"ID'si {id} olan kişinin zaten bir iletişim bilgisi yok!");
+                }
+            else
+            {
+                return BadRequest($"ID'si {id} olan kişi bulunamadı!");
+            }
         }
     }
 }
