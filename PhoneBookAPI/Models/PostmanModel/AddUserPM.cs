@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace PhoneBookAPI.Models.ORM.VM
 {
-    public class AddUserVM
+    public class AddUserPM
     {
         public int ID { get; set; }
         [Required]

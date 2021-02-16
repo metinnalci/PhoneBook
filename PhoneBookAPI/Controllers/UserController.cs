@@ -49,7 +49,7 @@ namespace PhoneBookAPI.Controllers
 
         [Route("user/add")]
         [HttpPost]
-        public IActionResult AddUser([FromForm] AddUserVM model)
+        public IActionResult AddUser([FromForm] AddUserPM model)
         {
             if (ModelState.IsValid)
             {
