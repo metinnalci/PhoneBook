@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using PhoneBookAPI.Models.Entities;
 using PhoneBookAPI.Models.ORM.Context;
+using PhoneBookAPI.Models.ORM.VM;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,23 +25,8 @@ namespace PhoneBookAPI.Controllers
         [HttpGet]
         public List<User> GetUserList()
         {
-            var users = _phoneBookContext.Users.Include(q => q.ContactTypes).Select(t => new User
-            {
-                ID = t.ID,
-                Name = t.Name,
-                SurName = t.SurName,
-                Company = t.Company,
-                Deleted = t.Deleted,
-                ContactTypes = (List<ContactTypes>)t.ContactTypes.Select(p => new ContactTypes
-                {
-                    ID = p.ID,
-                    UserID = p.UserID,
-                    Phone = p.Phone,
-                    Email = p.Email,
-                    Location = p.Location
-                })
-            }).Where(q => q.Deleted == false).ToList();
-
+            var users = _phoneBookContext.Users.Include(q => q.ContactTypes).Where(p => p.Deleted == false).ToList();
+            
             return users;
         }
 
@@ -51,32 +37,42 @@ namespace PhoneBookAPI.Controllers
             User user = _phoneBookContext.Users.Find(id);
             if (user != null)
             {
-                User userdetail = _phoneBookContext.Users.Include(q => q.ContactTypes).Select(t => new User
-                {
-                    ID = t.ID,
-                    Name = t.Name,
-                    SurName = t.SurName,
-                    Company = t.Company,
-                    Deleted = t.Deleted,
-                    ContactTypes = (List<ContactTypes>)t.ContactTypes.Select(p => new ContactTypes
-                    {
-                        ID = p.ID,
-                        UserID = p.UserID,
-                        Phone = p.Phone,
-                        Email = p.Email,
-                        Location = p.Location
-                    })
-                }).Where(q => q.Deleted == false).FirstOrDefault(ı => ı.ID == id);
-
+                var userdetail = _phoneBookContext.Users.Include(q => q.ContactTypes).Where(p => p.Deleted == false && p.ID == id);
                 return Ok(userdetail);
 
             }
             else
             {
-                return BadRequest($"ID numarası {id} olan kişi bulunamadı!");
+                return BadRequest($"ID'si {id} olan kişi bulunamadı!");
             }
         }
 
+        [Route("user/add")]
+        [HttpPost]
+        public IActionResult AddUser([FromForm] AddUserVM model)
+        {
+            if (ModelState.IsValid)
+            {
+                User user = new User();
+
+                user.Name = model.Name;
+                user.SurName = model.SurName;
+                user.Company = model.Company;
+
+                _phoneBookContext.Add(user);
+                _phoneBookContext.SaveChanges();
+
+                model.ID = user.ID;
+
+                return Ok(model);
+            }
+            else
+            {
+                return BadRequest(ModelState.Values);
+            }
+        }
+
+        
 
     }
 }
