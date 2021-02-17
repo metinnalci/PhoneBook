@@ -25,7 +25,7 @@ namespace ReportAPI.Controllers
 
         [Route("deneme")]
         [HttpGet]
-        public ActionResult<Report> GetMessage()
+        public void GetMessage()
         {
             var factory = new ConnectionFactory();
             factory.Uri = new Uri("amqps://yzpwpmfr:kXG_094LCRZZouYjRGoaXtQeSfpHNdgJ@eagle.rmq.cloudamqp.com/yzpwpmfr");
