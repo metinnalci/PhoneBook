@@ -26,11 +26,11 @@ namespace PhoneBookAPI.Controllers
         public List<User> GetUserList()
         {
             var users = _phoneBookContext.Users.Include(q => q.ContactTypes).Where(p => p.Deleted == false).ToList();
-            
+                        
             return users;
         }
 
-        [Route("user/{id}")]
+        [Route("userdetail/{id}")]
         [HttpGet]
         public IActionResult GetUserDetail(int id)
         {

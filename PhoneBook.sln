@@ -5,7 +5,9 @@ VisualStudioVersion = 16.0.30717.126
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PhoneBookAPI", "PhoneBookAPI\PhoneBookAPI.csproj", "{1CCDE7B4-006B-4E90-A9B4-A515927BFFCF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReportAPI", "ReportAPI\ReportAPI.csproj", "{6509BD12-BB59-4572-97F4-FC1DE53CC85B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ReportAPI", "ReportAPI\ReportAPI.csproj", "{6509BD12-BB59-4572-97F4-FC1DE53CC85B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTests", "UnitTests\UnitTests.csproj", "{8617CA94-6225-4CE8-9D5E-EAB272A738DB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{6509BD12-BB59-4572-97F4-FC1DE53CC85B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6509BD12-BB59-4572-97F4-FC1DE53CC85B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6509BD12-BB59-4572-97F4-FC1DE53CC85B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8617CA94-6225-4CE8-9D5E-EAB272A738DB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8617CA94-6225-4CE8-9D5E-EAB272A738DB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8617CA94-6225-4CE8-9D5E-EAB272A738DB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8617CA94-6225-4CE8-9D5E-EAB272A738DB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
