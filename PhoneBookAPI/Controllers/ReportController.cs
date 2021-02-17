@@ -6,6 +6,8 @@ using PhoneBookAPI.Models.Entities;
 using PhoneBookAPI.Models.MessageModel;
 using PhoneBookAPI.Models.ORM.Context;
 using RabbitMQ.Client;
+using ReportAPI.Models.ORM.Context;
+using ReportAPI.Models.ORM.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,6 +26,7 @@ namespace PhoneBookAPI.Controllers
             _phoneBookContext = phoneBookContext;
         }
 
+        
         [Route("report/{location}")]
         [HttpGet]
         public IActionResult ReportProducer(string location)
@@ -43,9 +46,10 @@ namespace PhoneBookAPI.Controllers
 
                     User user = _phoneBookContext.Users.Include(q => q.ContactTypes).Where(q => q.ContactTypes.Location == location).FirstOrDefault();
 
-                    message.Location = location;
+                    message.Location = user.ContactTypes.Location;
                     message.Phone = user.ContactTypes.Phone;
                     message.UserID = user.ID;
+
 
                     string serializemessage = JsonConvert.SerializeObject(message);
 

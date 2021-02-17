@@ -28,6 +28,7 @@ namespace ReportAPI
         {
             services.AddControllers();
             services.AddDbContext<ReportContext>();
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
