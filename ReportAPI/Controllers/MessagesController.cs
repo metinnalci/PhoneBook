@@ -23,7 +23,7 @@ namespace ReportAPI.Controllers
             _reportContext = reportContext;
         }
 
-        [Route("deneme")]
+        [Route("report")]
         [HttpGet]
         public void GetMessage()
         {
